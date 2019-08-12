@@ -1,9 +1,10 @@
 package com.example.webservice.dao;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,15 +22,20 @@ public class AccountServiceDAO {
 		return newAccount.getId().toString();
 	}
 	
-	public void setAmount(int amount, int accountId) {
+	public void setAmount(int accountId, int amount) {
 		Account updatedAccount = (Account) accountList.stream().filter(c -> c.getId().equals(accountId));
 		updatedAccount.addAmount(amount);
 		accountList.add(updatedAccount);
 	}
 	
-	public String getBalance(int accountId) {
+	public Integer getBalance(int accountId) {
 		Account checkedAccount  = (Account) accountList.stream().filter(c -> c.getId().equals(accountId));
-		return checkedAccount.getAmount().toString();
+		return checkedAccount.getAmount();
+	}
+	
+	public void withdraw(int accountId, int amount) {
+		Account updatedAccount = (Account) accountList.stream().filter(c -> c.getId().equals(accountId));
+		updatedAccount.removeAmount(amount);
 	}
 	
 }

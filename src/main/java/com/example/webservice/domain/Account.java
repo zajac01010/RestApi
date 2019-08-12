@@ -13,14 +13,14 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	private Double amount;
+	private Integer amount;
 	Random random = new Random(); 
 	
 	public Account() {
 		this.id = random.nextInt(1000);
 	}
 	
-	public Account(double amount) {
+	public Account(int amount) {
 		this.amount = amount;
 	}
 
@@ -32,16 +32,20 @@ public class Account {
 		this.id = id;
 	}
 
-	public Double getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Double amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 	
 	public void addAmount(int amount) {
 		this.amount += amount;
+	}
+	
+	public void removeAmount(int amount) {
+		this.amount -= amount;
 	}
 
 }

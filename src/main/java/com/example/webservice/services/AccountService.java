@@ -21,8 +21,17 @@ public class AccountService {
 		accountServiceDAO.setAmount(amount, accountId);
 	}
 	
-	public String getBalance(int accountId) {
+	public Integer getBalance(int accountId) {
 		return accountServiceDAO.getBalance(accountId);
+	}
+	
+	public String withdraw(int accountId, int amount) {
+		if(getBalance(accountId) < amount) {
+			return "Insufficient funds";
+		} else {
+			accountServiceDAO.withdraw(accountId, amount);
+			return "Withdraw done, account State =" + getBalance(accountId);
+		}
 	}
 	
 }
