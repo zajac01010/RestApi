@@ -10,6 +10,8 @@ import com.example.webservice.domain.Account;
 @Service
 public class AccountService {
 	
+	public static final String INSUFFICIENT_FUNDS = "Insufficient funds";
+	
 	@Autowired
 	AccountServiceDAO accountServiceDAO;
 
@@ -31,6 +33,14 @@ public class AccountService {
 		} else {
 			accountServiceDAO.withdraw(accountId, amount);
 			return "Withdraw done, account State =" + getBalance(accountId);
+		}
+	}
+	
+	public String transfer(int accountFrom, int amountFrom, int accountTo, int amountTo) {
+		if(withdraw(accountFrom, amountFrom).equals(INSUFFICIENT_FUNDS)) return INSUFFICIENT_FUNDS;
+		else {
+			setAmount(amountTo + amountFrom, accountTo);
+			return "Transfer finished";
 		}
 	}
 	
